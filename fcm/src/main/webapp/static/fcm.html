@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Test FCM</title>
+<script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA-6vtxwHZGnVsAAFIMjfMV5ub2iXZxb6w",
+    authDomain: "fcm1-ae461.firebaseapp.com",
+    databaseURL: "https://fcm1-ae461.firebaseio.com",
+    storageBucket: "fcm1-ae461.appspot.com",
+    messagingSenderId: "200425566112"
+  };
+  firebase.initializeApp(config);
+  
+  
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		
+ 		navigator.serviceWorker.register('firebase-messaging-sw.js')
+ 		.then((registration) => {
+			const messaging = firebase.messaging();
+			messaging.useServiceWorker(registration);
+			
+			// Request permission
+			messaging.requestPermission()
+			.then(function() {
+				console.log('Notification permission granted.');
+			  
+			})
+			.catch(function(err) {
+				console.log('Unable to get permission to notify.', err);
+			});
+		   
+		   
+			messaging.onMessage(function(payload) {
+				console.log("Message received. ", payload);
+			});
+			
+ 		});
+	   
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>
